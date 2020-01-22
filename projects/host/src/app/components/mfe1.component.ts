@@ -10,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
     <ng-template #loading>Loading Activator...</ng-template>
     <mfe-activator
       *axLazyElement="url; loadingTemplate: loading; errorTemplate: error"
-      [params]="params">
+      [forwardToggle]="true">
     </mfe-activator>
     <ng-template #error> MFE ACTIVATOR LOADING FAILED... </ng-template>
   `

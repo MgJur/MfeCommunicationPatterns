@@ -10,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
     <ng-template #loading>Loading Finder...</ng-template>
     <mfe-finder
       *axLazyElement="url; loadingTemplate: loading; errorTemplate: error"
-      [params]="params">
+      [activation]="true" [provideQuery]="'Apple'">
     </mfe-finder>
     <ng-template #error> MFE Finder LOADING FAILED... </ng-template>
   `

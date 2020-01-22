@@ -9,7 +9,7 @@ import { takeUntil } from 'rxjs/operators';
     <ng-template #loading>Loading Picker...</ng-template>
     <mfe-picker
       *axLazyElement="url; loadingTemplate: loading; errorTemplate: error"
-      [params]="params">
+      [activation]="true" (forwardQuery)="onSelect($event)">
     </mfe-picker>
     <ng-template #error> MFE PICKER LOADING FAILED... </ng-template>
   `
