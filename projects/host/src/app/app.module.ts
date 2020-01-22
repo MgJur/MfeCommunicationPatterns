@@ -33,7 +33,6 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    // LazyElementsModule.forFeature(options),
     LazyElementsModule,
     HttpClientModule
   ],

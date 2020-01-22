@@ -7,8 +7,9 @@ import { takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'app-mfe-activator',
     template: `
+    <ng-template #loading>Loading Activator...</ng-template>
     <mfe-activator
-      *axLazyElement="url; errorTemplate: error"
+      *axLazyElement="url; loadingTemplate: loading; errorTemplate: error"
       [params]="params">
     </mfe-activator>
     <ng-template #error> MFE ACTIVATOR LOADING FAILED... </ng-template>
@@ -16,7 +17,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class MfeOneComponent implements OnInit, OnDestroy {
 
-    url: 'http://localhost:8080/mfe1/main-es2015.js';
+    url = 'http://localhost:8080/mfe1/main-es2015.js';
 
     params: any;
     destroyed$ = new Subject();
