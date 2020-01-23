@@ -8,6 +8,10 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 export class AppComponent {
   title = 'mfe2';
   @Input() activation: boolean;
-  @Output() forwardQuery: EventEmitter<string> = new EventEmitter();
+  @Output() query: EventEmitter<string> = new EventEmitter();
+
+  forwardQuery($event: string) {
+    this.query.emit($event);
+  }
 
 }

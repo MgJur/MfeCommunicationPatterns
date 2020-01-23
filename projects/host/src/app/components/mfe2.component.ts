@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -9,15 +9,17 @@ import { takeUntil } from 'rxjs/operators';
     <ng-template #loading>Loading Picker...</ng-template>
     <mfe-picker
       *axLazyElement="url; loadingTemplate: loading; errorTemplate: error"
-      [activation]="true" (forwardQuery)="onSelect($event)">
+      [params]="params"
+      [activation]="toggle"
+      (query)="onSelect($event)">
     </mfe-picker>
     <ng-template #error> MFE PICKER LOADING FAILED... </ng-template>
   `
 })
 export class MfeTwoComponent implements OnInit, OnDestroy {
     url = 'http://localhost:8080/mfe2/main-es2015.js';
-
     params: any;
+    toggle: boolean = true;
     destroyed$ = new Subject();
 
     constructor(
@@ -33,6 +35,15 @@ export class MfeTwoComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.destroyed$.next();
         this.destroyed$.complete();
+    }
+
+    setToggle(toggle: boolean) {
+        this.toggle = toggle;
+    }
+
+    onSelect(event: CustomEvent) {
+        console.log(event.detail);
+        return;
     }
 }
 

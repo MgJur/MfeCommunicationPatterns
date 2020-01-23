@@ -8,7 +8,9 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class AppComponent {
   title = 'mfe1';
 
-  @Output() forwardToggle: EventEmitter<boolean> = new EventEmitter();
+  @Output() toggle: EventEmitter<boolean> = new EventEmitter();
 
-
+  forwardToggle($event: EventEmitter<boolean>) {
+    $event ? this.toggle.emit(true) : this.toggle.emit(false);
+  }
 }

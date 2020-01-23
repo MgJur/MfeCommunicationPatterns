@@ -10,7 +10,9 @@ import { takeUntil } from 'rxjs/operators';
     <ng-template #loading>Loading Finder...</ng-template>
     <mfe-finder
       *axLazyElement="url; loadingTemplate: loading; errorTemplate: error"
-      [activation]="true" [provideQuery]="'Apple'">
+      [params]="params"
+      [activation]="toggle"
+      [provideQuery]="queryParam">
     </mfe-finder>
     <ng-template #error> MFE Finder LOADING FAILED... </ng-template>
   `
@@ -18,8 +20,9 @@ import { takeUntil } from 'rxjs/operators';
 export class MfeThreeComponent implements OnInit, OnDestroy {
 
     url = 'http://localhost:8080/mfe3/main-es2015.js';
-
     params: any;
+    queryParam = '';
+    toggle: boolean;
     destroyed$ = new Subject();
 
     constructor(
@@ -36,5 +39,14 @@ export class MfeThreeComponent implements OnInit, OnDestroy {
         this.destroyed$.next();
         this.destroyed$.complete();
     }
+
+    setToggle(toggle: boolean) {
+        this.toggle = toggle;
+    }
+
+    queryFor(selection: string) {
+        this.queryParam = selection;
+    }
+
 }
 

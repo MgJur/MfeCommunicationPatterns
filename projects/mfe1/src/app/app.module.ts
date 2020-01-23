@@ -9,7 +9,7 @@ import { MyBscCompModule } from 'my-bsc-comp';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

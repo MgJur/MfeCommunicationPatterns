@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -10,7 +10,8 @@ import { takeUntil } from 'rxjs/operators';
     <ng-template #loading>Loading Activator...</ng-template>
     <mfe-activator
       *axLazyElement="url; loadingTemplate: loading; errorTemplate: error"
-      [forwardToggle]="true">
+      [params]="params"
+      (toggle)="toggleMfe($event)">
     </mfe-activator>
     <ng-template #error> MFE ACTIVATOR LOADING FAILED... </ng-template>
   `
@@ -37,5 +38,10 @@ export class MfeOneComponent implements OnInit, OnDestroy {
         this.destroyed$.complete();
     }
 
+    toggleMfe($event: CustomEvent) {
+        $event ? console.log($event.detail , 'event is true') : console.log('es ist false');
+
+        return;
+    }
 }
 
