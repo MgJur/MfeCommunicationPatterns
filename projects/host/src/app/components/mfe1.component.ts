@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { NgxPubSubService } from '@pscoped/ngx-pub-sub';
 
 
 @Component({
@@ -22,10 +23,18 @@ export class MfeOneComponent implements OnInit, OnDestroy {
 
     params: any;
     destroyed$ = new Subject();
+    // Publsih this Event
+    toggleEvent = 'toggleMfe';
 
     constructor(
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private pubSubService: NgxPubSubService
     ) {}
+
+    // publish Event with given Value
+    publishEvent(val: boolean) {
+        this.pubSubService.publishWithLast(this.toggleEvent, val);
+    }
 
     ngOnInit() {
         this.activatedRoute.queryParamMap
@@ -37,11 +46,9 @@ export class MfeOneComponent implements OnInit, OnDestroy {
         this.destroyed$.next();
         this.destroyed$.complete();
     }
-
+    // trigger publish Event with value of toggle
     toggleMfe($event: CustomEvent) {
-        $event ? console.log($event.detail , 'event is true') : console.log('es ist false');
-
-        return;
+        this.publishEvent($event.detail);
     }
 }
 

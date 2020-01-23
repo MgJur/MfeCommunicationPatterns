@@ -6,21 +6,14 @@ import { MfeOneComponent } from './components/mfe1.component';
 import { MfeTwoComponent } from './components/mfe2.component';
 import { MfeThreeComponent } from './components/mfe3.component';
 
+// axLazyElement for Webcomponents
 import { LazyElementsModule, LazyElementModuleOptions } from '@angular-extensions/elements';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// import { AppComponent } from 'projects/mfe1/src/app/app.component';
-
-// pre-configured LazyElementsModule
-// const options: LazyElementModuleOptions = {
-//   elementConfigs: [
-//     { tag: 'mfe-activator', url: 'http://localhost:8080/mfe1/main-es2015.js' },
-//     { tag: 'mfe-picker', url: 'http://localhost:8080/mfe2/main-es2015.js' },
-//     { tag: 'mfe-finder', url: 'http://localhost:8080/mfe3/main-es2015.js' }
-//   ]
-// };
+// Publisher Subscriber - Structure
+import { NgxPubSubModule } from '@pscoped/ngx-pub-sub';
 
 
 @NgModule({
@@ -34,7 +27,8 @@ import { AppComponent } from './app.component';
     BrowserModule,
     AppRoutingModule,
     LazyElementsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxPubSubModule
   ],
   providers: [],
   bootstrap: [AppComponent],

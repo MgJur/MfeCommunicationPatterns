@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { NgxPubSubService } from '@pscoped/ngx-pub-sub';
 
 
 @Component({
@@ -22,22 +23,34 @@ export class MfeThreeComponent implements OnInit, OnDestroy {
     url = 'http://localhost:8080/mfe3/main-es2015.js';
     params: any;
     queryParam = '';
-    toggle: boolean;
+    toggle  = false;
     destroyed$ = new Subject();
 
+    // Subscriptions Rxjs
+    toggleSubscription: Subscription;
+    selectSubscription: Subscription;
+
     constructor(
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private pubSubService: NgxPubSubService
     ) { }
 
     ngOnInit() {
         this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.destroyed$))
             .subscribe(() => this.params = this.activatedRoute.snapshot.queryParams);
+
+        // subscribe to Events
+        this.toggleSubscription = this.pubSubService.subscribe('toggleMfe', data => this.setToggle(data));
+        this.selectSubscription = this.pubSubService.subscribe('selectQuery', data => this.queryFor(data));
     }
 
     ngOnDestroy() {
         this.destroyed$.next();
         this.destroyed$.complete();
+        // unsubscribe from subscriptions
+        this.toggleSubscription.unsubscribe();
+        this.selectSubscription.unsubscribe();
     }
 
     setToggle(toggle: boolean) {
