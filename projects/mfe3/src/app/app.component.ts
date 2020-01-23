@@ -9,7 +9,5 @@ export class AppComponent {
   title = 'mfe3';
   @Input() activation: boolean;
   @Input() provideQuery: string;
-  constructor() {
-    console.log(this);
-  }
+  constructor() {}
 }
