@@ -13,7 +13,6 @@ import { AppComponent } from './app.component';
 
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './store';
-import { EffectsModule } from '@ngrx/effects';
 
 
 
@@ -35,8 +34,7 @@ import { EffectsModule } from '@ngrx/effects';
         strictStateImmutability: true,
         strictActionImmutability: true
       }
-    }),
-    EffectsModule.forRoot([DatabaseEffects, AppEffects])
+    })
   ],
   providers: [],
   bootstrap: [AppComponent],

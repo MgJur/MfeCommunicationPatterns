@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-
+import { Store } from '@ngrx/store';
+import { State, Selectors } from '../store/';
 @Component({
     selector: 'app-mfe-finder',
     template: `
@@ -25,19 +26,33 @@ export class MfeThreeComponent implements OnInit, OnDestroy {
     toggle: boolean;
     destroyed$ = new Subject();
 
+    private subscriptions: Array<Subscription> = [];
+
     constructor(
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private store: Store<State>
     ) { }
 
     ngOnInit() {
         this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.destroyed$))
             .subscribe(() => this.params = this.activatedRoute.snapshot.queryParams);
+
+        const toggleStateChanged = this.store
+        .select(Selectors.selectToggle)
+        .subscribe(toggleState => this.setToggle(toggleState));
+
+        const querySelected = this.store
+        .select(Selectors.selectQuery)
+        .subscribe(queryState => this.queryFor(queryState));
+
+        this.subscriptions.push(toggleStateChanged, querySelected);
     }
 
     ngOnDestroy() {
         this.destroyed$.next();
         this.destroyed$.complete();
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
     setToggle(toggle: boolean) {

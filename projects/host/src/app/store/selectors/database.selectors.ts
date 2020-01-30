@@ -6,7 +6,7 @@ import * as dbReducer from '../reducers/database.reducer';
 // https://ngrx.io/guide/store/selectors
 // creating selectors for db access
 
-export const selectDbState = createFeatureSelector<dbReducer.State>('dbReducer');
+export const selectDbState = createFeatureSelector<dbReducer.State>('database');
 
 export const selectQuery = createSelector(
     selectDbState,
@@ -15,5 +15,5 @@ export const selectQuery = createSelector(
 
 export const selectToggle = createSelector(
     selectDbState,
-    (state: dbReducer.State) => state.query || null
+    (state: dbReducer.State) => state.toggleState || null
 );

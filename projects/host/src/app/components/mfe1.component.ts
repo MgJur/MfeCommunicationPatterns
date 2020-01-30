@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { Store } from '@ngrx/store';
+import { State, Actions } from '../store/';
+
 
 @Component({
     selector: 'app-mfe-activator',
@@ -23,8 +26,11 @@ export class MfeOneComponent implements OnInit, OnDestroy {
     params: any;
     destroyed$ = new Subject();
 
+
+
     constructor(
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private store: Store<State>
     ) {}
 
     ngOnInit() {
@@ -38,10 +44,19 @@ export class MfeOneComponent implements OnInit, OnDestroy {
         this.destroyed$.complete();
     }
 
-    toggleMfe($event: CustomEvent) {
-        $event ? console.log($event.detail , 'event is true') : console.log('es ist false');
+    // dispatch function to dispatch the setToggle Action on store
+    private dispatchToggleChangedAction(toggle: boolean) {
+        return this.store
+            .dispatch(Actions.setToggle(
+                {
+                    setState: toggle
+                }
+            ));
+    }
 
-        return;
+    toggleMfe($event: CustomEvent) {
+        // dispatch Action to store
+        this.dispatchToggleChangedAction($event.detail);
     }
 }
 
