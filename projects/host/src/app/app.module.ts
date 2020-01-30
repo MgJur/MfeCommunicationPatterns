@@ -11,16 +11,10 @@ import { LazyElementsModule, LazyElementModuleOptions } from '@angular-extension
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// import { AppComponent } from 'projects/mfe1/src/app/app.component';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './store';
+import { EffectsModule } from '@ngrx/effects';
 
-// pre-configured LazyElementsModule
-// const options: LazyElementModuleOptions = {
-//   elementConfigs: [
-//     { tag: 'mfe-activator', url: 'http://localhost:8080/mfe1/main-es2015.js' },
-//     { tag: 'mfe-picker', url: 'http://localhost:8080/mfe2/main-es2015.js' },
-//     { tag: 'mfe-finder', url: 'http://localhost:8080/mfe3/main-es2015.js' }
-//   ]
-// };
 
 
 @NgModule({
@@ -34,7 +28,15 @@ import { AppComponent } from './app.component';
     BrowserModule,
     AppRoutingModule,
     LazyElementsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
+    EffectsModule.forRoot([DatabaseEffects, AppEffects])
   ],
   providers: [],
   bootstrap: [AppComponent],
