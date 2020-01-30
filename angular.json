@@ -476,5 +476,8 @@
       }
     }
   },
-  "defaultProject": "host"
+  "defaultProject": "host",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
