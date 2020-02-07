@@ -1,23 +1,44 @@
-
+* {
+    box-sizing: border-box;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+p {
+    padding: 10px;
+    font-size: 14px;
+}
 .mfe-wrapper{
-    h1 {
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        font-size: 24px;
-        font-weight: 500;
-        color: #333333;
-        text-align: center;
-        margin-bottom: 100px;
-    }
+    display: flex;
+    background-color: #d8e9ef;
+    border-radius: 40px;
+    width: 100%;
+    border: 1px solid #333333;
     .mfe-activator {
+        display: flex;
+        text-align: center;
+        border: 1px solid #333333;
         position: absolute;
-        left: 50px;
+        right: 100px;
+        top: 10%;
+        p {
+            padding: 0 10px
+        }
     }
     .mfe-picker {
-        display: flex;
-        justify-content: center;
+        border-right: 1px solid #333333;
+        p {
+            padding-left: 40px;
+        }
     }
-    .mfe-finder {
-        margin-left: 50px;
+    .finder {
+        padding-top:12px;
     }
 }
 
+h1 {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: #333333;
+    text-align: center;
+    margin-bottom: 150px;
+}
