@@ -12,7 +12,10 @@ import { LazyElementsModule, LazyElementModuleOptions } from '@angular-extension
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// Publisher Subscriber - Structure
+/**
+ * Publisher Subscriber - Service from https://www.npmjs.com/package/@pscoped/ngx-pub-sub
+ * implements RxJs Observables -> registers event and emits them to subscriber
+ */
 import { NgxPubSubModule } from '@pscoped/ngx-pub-sub';
 
 

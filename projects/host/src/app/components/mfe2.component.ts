@@ -2,8 +2,15 @@ import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+/**
+ * Import from https://www.npmjs.com/package/@pscoped/ngx-pub-sub
+ */
 import { NgxPubSubService } from '@pscoped/ngx-pub-sub';
 
+/**
+ * Webcomponent made with axLazyElement
+ * @param url (of served main-es2015.js of mfe)
+ */
 @Component({
     selector: 'app-mfe-picker',
     template: `
@@ -32,15 +39,22 @@ export class MfeTwoComponent implements OnInit, OnDestroy {
         private pubSubService: NgxPubSubService
     ) { }
 
+    /**
+     * publish event on PubSubService with name & event value
+     * @param val
+     */
     publishEvent(val: string) {
         this.pubSubService.publishWithLast(this.selectionEvent, val);
     }
 
+    /**
+     * events of the queryParamMap observables get handed to the mfe as input
+     */
     ngOnInit() {
         this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.destroyed$))
             .subscribe(() => this.params = this.activatedRoute.snapshot.queryParams);
-        // subscribe to Events
+        // subscribe to Events and trigger setToggle() with received value 
         this.toggleSubscription = this.pubSubService.subscribe('toggleMfe', data => this.setToggle(data));
     }
 
@@ -51,10 +65,17 @@ export class MfeTwoComponent implements OnInit, OnDestroy {
         this.toggleSubscription.unsubscribe();
     }
 
+    /**
+     *  set local toggle with toggle value of event
+     * @param toggleR
+     */
     setToggle(toggleR: boolean) {
         this.toggle = toggleR;
     }
-
+    /**
+     * call publish event when selected event gets triggered with value of event
+     * @param event
+     */
     onSelect(event: CustomEvent) {
         this.publishEvent(event.detail);
     }

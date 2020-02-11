@@ -2,9 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+/**
+ * Import from https://www.npmjs.com/package/@pscoped/ngx-pub-sub
+ */
 import { NgxPubSubService } from '@pscoped/ngx-pub-sub';
 
-
+/**
+ * Webcomponent made with axLazyElement
+ * @param url (of served main-es2015.js of mfe)
+ */
 @Component({
     selector: 'app-mfe-finder',
     template: `
@@ -35,12 +41,19 @@ export class MfeThreeComponent implements OnInit, OnDestroy {
         private pubSubService: NgxPubSubService
     ) { }
 
+    /**
+     * events of the queryParamMap observables get handed to the mfe as input
+     */
     ngOnInit() {
         this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.destroyed$))
             .subscribe(() => this.params = this.activatedRoute.snapshot.queryParams);
 
-        // subscribe to Events
+        /**
+         * subscribe to event and trigger methods
+         * setToggle() -> on toggle subscription
+         * queryFor() -> on select subscription
+         */
         this.toggleSubscription = this.pubSubService.subscribe('toggleMfe', data => this.setToggle(data));
         this.selectSubscription = this.pubSubService.subscribe('selectQuery', data => this.queryFor(data));
     }
@@ -53,10 +66,17 @@ export class MfeThreeComponent implements OnInit, OnDestroy {
         this.selectSubscription.unsubscribe();
     }
 
+    /**
+     *  set local toggle with toggle value of event
+     * @param toggleR
+     */
     setToggle(toggle: boolean) {
         this.toggle = toggle;
     }
-
+    /**
+     * set queryParam equal to value of selection
+     * @param selection
+     */
     queryFor(selection: string) {
         this.queryParam = selection;
     }

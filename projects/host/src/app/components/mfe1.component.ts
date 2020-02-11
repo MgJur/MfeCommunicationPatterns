@@ -2,9 +2,16 @@ import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+/**
+ * Import from https://www.npmjs.com/package/@pscoped/ngx-pub-sub
+ */
 import { NgxPubSubService } from '@pscoped/ngx-pub-sub';
 
-
+/**
+ * Webcomponent made with axLazyElement
+ * @param url (of served main-es2015.js of mfe)
+ */
 @Component({
     selector: 'app-mfe-activator',
     template: `
@@ -23,7 +30,7 @@ export class MfeOneComponent implements OnInit, OnDestroy {
 
     params: any;
     destroyed$ = new Subject();
-    // Publsih this Event
+    // Define known event name
     toggleEvent = 'toggleMfe';
 
     constructor(
@@ -31,11 +38,17 @@ export class MfeOneComponent implements OnInit, OnDestroy {
         private pubSubService: NgxPubSubService
     ) {}
 
-    // publish Event with given Value
+    /**
+     *  publish event on PubSub service with value of event val
+     * @param val 
+     */
     publishEvent(val: boolean) {
         this.pubSubService.publishWithLast(this.toggleEvent, val);
     }
 
+    /**
+     * events of the queryParamMap observables get handed to the mfe as input
+     */
     ngOnInit() {
         this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.destroyed$))
@@ -46,7 +59,10 @@ export class MfeOneComponent implements OnInit, OnDestroy {
         this.destroyed$.next();
         this.destroyed$.complete();
     }
-    // trigger publish Event with value of toggle
+    /**
+     * trigger publish event with value of toggle event
+     * @param $event
+     */
     toggleMfe($event: CustomEvent) {
         this.publishEvent($event.detail);
     }
