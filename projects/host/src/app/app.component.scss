@@ -8,23 +8,24 @@ p {
 }
 .mfe-wrapper{
     display: flex;
-    background-color: #d8e9ef;
+    background-color: #ffffff;;
     border-radius: 40px;
     width: 100%;
-    border: 1px solid #333333;
+    border: 1px solid #ef3340;
     .mfe-activator {
         display: flex;
         text-align: center;
-        border: 1px solid #333333;
+        border: 1px solid #ef3340;
         position: absolute;
         right: 100px;
         top: 10%;
+        border-radius: 15px;
         p {
             padding: 0 10px
         }
     }
     .mfe-picker {
-        border-right: 1px solid #333333;
+        border-right: 1px solid #ef3340;
         p {
             padding-left: 40px;
         }
