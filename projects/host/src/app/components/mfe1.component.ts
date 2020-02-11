@@ -1,9 +1,12 @@
-import { Component, OnInit, OnDestroy, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-
+/**
+ * Webcomponent made with axLazyElement
+ * @param url (of served main-es2015.js of mfe)
+ */
 @Component({
     selector: 'app-mfe-activator',
     template: `
@@ -11,9 +14,9 @@ import { takeUntil } from 'rxjs/operators';
     <mfe-activator
       *axLazyElement="url; loadingTemplate: loading; errorTemplate: error"
       [params]="params"
-      (toggle)="toggleMfe($event)">
+      [toggleS]="toggleS">
     </mfe-activator>
-    <ng-template #error> MFE ACTIVATOR LOADING FAILED... </ng-template>
+    <ng-template #error> ACTIVATOR LOADING FAILED... </ng-template>
   `
 })
 export class MfeOneComponent implements OnInit, OnDestroy {
@@ -23,10 +26,18 @@ export class MfeOneComponent implements OnInit, OnDestroy {
     params: any;
     destroyed$ = new Subject();
 
-    constructor(
-        private activatedRoute: ActivatedRoute
-    ) {}
+    /**
+     * Takes the Behaviorsubject as  input and passes it to the MFE itself
+     */
+    @Input() toggleS: BehaviorSubject<boolean>;
 
+    constructor(
+        private activatedRoute: ActivatedRoute) {}
+
+
+    /**
+     * events of the queryParamMap observables get handed to the mfe as input
+     */
     ngOnInit() {
         this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.destroyed$))
@@ -36,12 +47,6 @@ export class MfeOneComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
         this.destroyed$.next();
         this.destroyed$.complete();
-    }
-
-    toggleMfe($event: CustomEvent) {
-        $event ? console.log($event.detail , 'event is true') : console.log('es ist false');
-
-        return;
     }
 }
 
