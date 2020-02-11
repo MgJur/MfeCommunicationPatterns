@@ -6,11 +6,13 @@ import { MfeOneComponent } from './components/mfe1.component';
 import { MfeTwoComponent } from './components/mfe2.component';
 import { MfeThreeComponent } from './components/mfe3.component';
 
+// Import Angular extensions elements
 import { LazyElementsModule, LazyElementModuleOptions } from '@angular-extensions/elements';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+// Import NgRx store from nodemodules
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers } from './store';
 

@@ -3,8 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+// Import NgRx store from nodemodules
 import { Store } from '@ngrx/store';
 import { State, Selectors } from '../store/';
+
+/**
+ * Webcomponent made with axLazyElement
+ * @param url (of served main-es2015.js of mfe)
+ */
 @Component({
     selector: 'app-mfe-finder',
     template: `
@@ -33,32 +39,47 @@ export class MfeThreeComponent implements OnInit, OnDestroy {
         private store: Store<State>
     ) { }
 
+    /**
+     * events of the queryParamMap observables get handed to the mfe as input
+     */
     ngOnInit() {
         this.activatedRoute.queryParamMap
             .pipe(takeUntil(this.destroyed$))
             .subscribe(() => this.params = this.activatedRoute.snapshot.queryParams);
 
+        // Subscribe to toggle state and query state via selectors
         const toggleStateChanged = this.store
-        .select(Selectors.selectToggle)
-        .subscribe(toggleState => this.setToggle(toggleState));
+            .select(Selectors.selectToggle)
+            .subscribe(toggleState => this.setToggle(toggleState));
 
         const querySelected = this.store
-        .select(Selectors.selectQuery)
-        .subscribe(queryState => this.queryFor(queryState));
+            .select(Selectors.selectQuery)
+            .subscribe(queryState => this.queryFor(queryState));
 
         this.subscriptions.push(toggleStateChanged, querySelected);
     }
 
+    /**
+     * Unsubscribe from Subscriptions to prevent Memoryleak
+     */
     ngOnDestroy() {
         this.destroyed$.next();
         this.destroyed$.complete();
         this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
+    /**
+     * set local toggle to value:
+     * @param toggle
+     */
     setToggle(toggle: boolean) {
         this.toggle = toggle;
     }
 
+    /**
+     * set local queryParam to value:
+     * @param selection
+     */
     queryFor(selection: string) {
         this.queryParam = selection;
     }

@@ -3,10 +3,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+// Import NgRx store from nodemodules
 import { Store } from '@ngrx/store';
 import { State, Actions } from '../store/';
 
-
+/**
+ * Webcomponent made with axLazyElement
+ * @param url (of served main-es2015.js of mfe)
+ */
 @Component({
     selector: 'app-mfe-activator',
     template: `
@@ -44,7 +48,10 @@ export class MfeOneComponent implements OnInit, OnDestroy {
         this.destroyed$.complete();
     }
 
-    // dispatch function to dispatch the setToggle Action on store
+    /**
+     * dispatch the setToggle Action on store with value:
+     * @param toggle
+     */
     private dispatchToggleChangedAction(toggle: boolean) {
         return this.store
             .dispatch(Actions.setToggle(
@@ -54,8 +61,11 @@ export class MfeOneComponent implements OnInit, OnDestroy {
             ));
     }
 
+    /**
+     * dispatch toggleChangedAction on store with value:
+     * @param $event
+     */
     toggleMfe($event: CustomEvent) {
-        // dispatch Action to store
         this.dispatchToggleChangedAction($event.detail);
     }
 }
