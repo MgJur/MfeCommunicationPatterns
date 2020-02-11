@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input, EventEmitter } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,26 @@ import { Component, Output, EventEmitter } from '@angular/core';
 })
 export class AppComponent {
   title = 'mfe1';
+  /**
+   * Takes the Behaviorsubject as Input
+   */
+  @Input() toggleS: BehaviorSubject<boolean>;
 
-  @Output() toggle: EventEmitter<boolean> = new EventEmitter();
-
+  constructor() {}
+  /**
+   * On toggle checks if Subject got already delivered by the Container
+   * no -> quits method
+   * yes -> calls next on the subject to emit the event value to all subscribers
+   * @param $event: EventEmitter<boolean>
+   */
   forwardToggle($event: EventEmitter<boolean>) {
-    $event ? this.toggle.emit(true) : this.toggle.emit(false);
+    if (!this.toggleS) {
+      return;
+    }
+    $event ? this.toggleS.next(true) : this.toggleS.next(false);
   }
+
+
+
+
 }
