@@ -11,17 +11,6 @@ import { LazyElementsModule, LazyElementModuleOptions } from '@angular-extension
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-// import { AppComponent } from 'projects/mfe1/src/app/app.component';
-
-// pre-configured LazyElementsModule
-// const options: LazyElementModuleOptions = {
-//   elementConfigs: [
-//     { tag: 'mfe-activator', url: 'http://localhost:8080/mfe1/main-es2015.js' },
-//     { tag: 'mfe-picker', url: 'http://localhost:8080/mfe2/main-es2015.js' },
-//     { tag: 'mfe-finder', url: 'http://localhost:8080/mfe3/main-es2015.js' }
-//   ]
-// };
-
 
 @NgModule({
   declarations: [
