@@ -14,9 +14,9 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 !Important: Checkout one of following branches for different types of Communication Patterns:
 
-  1) Observer Pattern: `https://github.com/MgJur/MfeCommunicationPatterns/tree/develop/ObserverPattern`
-  2) Publisher Subscriber Pattern: `https://github.com/MgJur/MfeCommunicationPatterns/tree/develop/PubSubPattern`
-  3) Shared Database Pattern: `https://github.com/MgJur/MfeCommunicationPatterns/tree/develop/SharedDatabaseRxJsPattern`
+  1) [Observer Pattern](https://github.com/MgJur/MfeCommunicationPatterns/tree/develop/ObserverPattern)
+  2) [Publisher Subscriber Pattern](https://github.com/MgJur/MfeCommunicationPatterns/tree/develop/PubSubPattern)
+  3) [Shared Database Pattern](https://github.com/MgJur/MfeCommunicationPatterns/tree/develop/SharedDatabaseRxJsPattern)
   
 
 - Once done Cd into the project Folder
